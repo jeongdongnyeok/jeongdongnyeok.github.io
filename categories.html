@@ -1,0 +1,20 @@
+---
+layout: default
+title: 카테고리
+permalink: /categories/
+---
+
+<h1>📁 카테고리별 글</h1>
+<ul>
+  {% assign categories = site.categories | sort %}
+  {% for category in categories %}
+    <li>
+      <h2>{{ category[0] }}</h2>
+      <ul>
+        {% for post in category[1] %}
+          <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%Y-%m-%d" }})</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>
