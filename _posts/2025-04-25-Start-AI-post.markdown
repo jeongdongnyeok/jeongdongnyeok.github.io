@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "First Post"
+title:  "Start Post"
 categories: [blog, diary]
 date:   2025-04-25 11:11:00 +0900
-tags: [first, new]
+tags: [ai, new, test]
 ---
 
-# Start
+# Re Start
 
 이제부터 시작.
 
