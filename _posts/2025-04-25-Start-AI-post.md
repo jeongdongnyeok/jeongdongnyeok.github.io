@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Start Post"
-categories: diary
+categories: [diary]
 date: 2025-04-25 11:11:00 +0900
 tags: [ai, new, test]
 ---
