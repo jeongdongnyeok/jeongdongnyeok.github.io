@@ -1,12 +1,12 @@
-title: "🏄‍♂️파도가올땐서핑을"
+title: " 🏄‍♂️ 파도가 올 땐 서핑을"
 author:
   name: 녘
   email: dongnyeok@me.com
 
-# The `>` after `description:` means to ignore line-breaks until next key.
-# If you want to omit the line-break after the end of text, use `>-` instead.
+# Blog SEO meta description
+# 이 블로그는 AI, 개발, 일상, 유저스토리, 기록, 생산성, 성장, 경험, 포트폴리오, 일기 등 다양한 주제를 다룹니다.
 description: >
-  AI를 통한 개발과 제품을 구조화하는데 집중한다.
+  AI를 통한 개발과 제품을 구조화하는데 집중합니다.
 
 # Build settings
 
@@ -21,6 +21,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Theme-specific settings
 
