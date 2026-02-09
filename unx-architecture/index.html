@@ -23,375 +23,151 @@ layout: null
             border-bottom: 2px solid #b8a9d4;
             padding: 40px 60px;
         }
-        @media (max-width: 768px) {
-            .header { padding: 24px 20px; }
-        }
+        @media (max-width: 768px) { .header { padding: 24px 20px; } }
 
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2d2d3d;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            color: #6b6b80;
-            font-size: 15px;
-        }
-
+        .header h1 { font-size: 28px; font-weight: 700; color: #2d2d3d; margin-bottom: 8px; }
+        .header p { color: #6b6b80; font-size: 15px; }
         .header .badge {
-            display: inline-block;
-            background: #b8a9d4;
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 12px;
+            display: inline-block; padding: 3px 10px; border-radius: 4px;
+            font-size: 12px; font-weight: 600; margin-top: 12px;
         }
+        .header .badge-v3 { background: #b8a9d4; color: #fff; }
+        .header .badge-hitl { background: #ff9800; color: #fff; margin-left: 6px; }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 60px;
-        }
-        @media (max-width: 768px) {
-            .container { padding: 24px 16px; }
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 60px; }
+        @media (max-width: 768px) { .container { padding: 24px 16px; } }
 
-        .section {
-            margin-bottom: 60px;
-        }
+        .section { margin-bottom: 60px; }
 
         .section h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #7c6aa6;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 20px; font-weight: 600; color: #7c6aa6; margin-bottom: 8px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .section h2::before {
-            content: '';
-            display: block;
-            width: 4px;
-            height: 20px;
-            background: #b8a9d4;
-            border-radius: 2px;
-            flex-shrink: 0;
+            content: ''; display: block; width: 4px; height: 20px;
+            background: #b8a9d4; border-radius: 2px; flex-shrink: 0;
         }
+        .section .subtitle { color: #8888a0; font-size: 14px; margin-bottom: 24px; }
 
-        .section .subtitle {
-            color: #8888a0;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        /* Mermaid 래퍼 — 더 이상 wrapper 자체를 클릭하지 않음 */
+        /* Mermaid 래퍼 */
         .mermaid-wrapper {
-            background: #ffffff;
-            border: 1px solid #e0dce8;
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: box-shadow 0.2s;
+            background: #ffffff; border: 1px solid #e0dce8; border-radius: 12px;
+            padding: 20px; position: relative; overflow: hidden; transition: box-shadow 0.2s;
         }
+        .mermaid-wrapper:hover { box-shadow: 0 4px 20px rgba(124, 106, 166, 0.15); }
 
-        .mermaid-wrapper:hover {
-            box-shadow: 0 4px 20px rgba(124, 106, 166, 0.15);
-        }
-
-        /* 상단 컨트롤 바 */
         .diagram-controls {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 6px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
+            display: flex; align-items: center; justify-content: flex-end;
+            gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
         }
-
         .diagram-controls button {
-            height: 36px;
-            border-radius: 8px;
-            border: 1px solid #e0dce8;
-            background: #fff;
-            color: #7c6aa6;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            height: 36px; border-radius: 8px; border: 1px solid #e0dce8;
+            background: #fff; color: #7c6aa6; font-size: 14px; font-weight: 500;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             -webkit-tap-highlight-color: transparent;
         }
-
-        .diagram-controls button:hover,
-        .diagram-controls button:active {
-            background: #f0ecf5;
-            border-color: #b8a9d4;
+        .diagram-controls button:hover, .diagram-controls button:active {
+            background: #f0ecf5; border-color: #b8a9d4;
         }
-
-        .diagram-controls .zoom-btn {
-            width: 36px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
+        .diagram-controls .zoom-btn { width: 36px; font-size: 18px; font-weight: 600; }
         .diagram-controls .zoom-label {
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            height: 36px;
-            font-size: 12px;
-            color: #8888a0;
-            background: #f8f6ff;
-            border-radius: 8px;
-            border: 1px solid #e0dce8;
+            display: flex; align-items: center; padding: 0 10px; height: 36px;
+            font-size: 12px; color: #8888a0; background: #f8f6ff;
+            border-radius: 8px; border: 1px solid #e0dce8;
         }
-
         .diagram-controls .fullscreen-btn {
-            padding: 0 14px;
-            gap: 6px;
-            background: #7c6aa6;
-            color: #fff;
-            border-color: #7c6aa6;
-            min-height: 44px; /* 모바일 터치 영역 확보 */
+            padding: 0 14px; gap: 6px; background: #7c6aa6; color: #fff;
+            border-color: #7c6aa6; min-height: 44px;
         }
-
-        .diagram-controls .fullscreen-btn:hover,
-        .diagram-controls .fullscreen-btn:active {
-            background: #6b5a94;
-        }
+        .diagram-controls .fullscreen-btn:hover, .diagram-controls .fullscreen-btn:active { background: #6b5a94; }
 
         .mermaid-viewport {
-            overflow: auto;
-            padding: 20px;
-            min-height: 200px;
-            -webkit-overflow-scrolling: touch;
+            overflow: auto; padding: 20px; min-height: 200px; -webkit-overflow-scrolling: touch;
         }
-
         .mermaid-viewport .mermaid-inner {
-            transform-origin: top left;
-            transition: transform 0.15s ease;
-            display: inline-block;
+            transform-origin: top left; transition: transform 0.15s ease; display: inline-block;
         }
+        .mermaid { display: flex; justify-content: center; }
 
-        .mermaid {
-            display: flex;
-            justify-content: center;
-        }
-
-        /* ===== 전체화면 오버레이 ===== */
+        /* 전체화면 오버레이 */
         .fullscreen-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(248, 246, 242, 0.98);
-            z-index: 9999;
-            flex-direction: column;
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(248, 246, 242, 0.98); z-index: 9999; flex-direction: column;
         }
-
-        .fullscreen-overlay.active {
-            display: flex;
-        }
-
+        .fullscreen-overlay.active { display: flex; }
         .fullscreen-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: #fff;
-            border-bottom: 1px solid #e0dce8;
-            flex-shrink: 0;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 16px; background: #fff; border-bottom: 1px solid #e0dce8; flex-shrink: 0; gap: 8px;
         }
-
-        .fullscreen-toolbar .title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #7c6aa6;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .fullscreen-toolbar .toolbar-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
-        }
-
+        .fullscreen-toolbar .title { font-size: 15px; font-weight: 600; color: #7c6aa6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .fullscreen-toolbar .toolbar-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .fullscreen-toolbar button {
-            height: 40px;
-            border-radius: 8px;
-            border: 1px solid #e0dce8;
-            background: #fff;
-            color: #7c6aa6;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            -webkit-tap-highlight-color: transparent;
+            height: 40px; border-radius: 8px; border: 1px solid #e0dce8; background: #fff; color: #7c6aa6;
+            font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.06); -webkit-tap-highlight-color: transparent;
         }
-
-        .fullscreen-toolbar button:active {
-            background: #f0ecf5;
-            transform: scale(0.95);
-        }
-
-        .fullscreen-toolbar button.fs-zoom-btn {
-            width: 40px;
-            font-size: 18px;
-            font-weight: 600;
-            min-width: 44px; /* 모바일 터치 */
-            min-height: 44px;
-        }
-
+        .fullscreen-toolbar button:active { background: #f0ecf5; transform: scale(0.95); }
+        .fullscreen-toolbar button.fs-zoom-btn { width: 40px; font-size: 18px; font-weight: 600; min-width: 44px; min-height: 44px; }
         .fullscreen-toolbar .fs-zoom-label {
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            height: 40px;
-            font-size: 12px;
-            color: #8888a0;
-            background: #f8f6ff;
-            border-radius: 8px;
-            border: 1px solid #e0dce8;
+            display: flex; align-items: center; padding: 0 10px; height: 40px;
+            font-size: 12px; color: #8888a0; background: #f8f6ff; border-radius: 8px; border: 1px solid #e0dce8;
         }
-
         .fullscreen-toolbar .exit-btn {
-            padding: 0 16px;
-            gap: 6px;
-            background: #e94560;
-            color: #fff;
-            border-color: #e94560;
-            font-weight: 600;
-            min-width: 44px;
-            min-height: 44px;
+            padding: 0 16px; gap: 6px; background: #e94560; color: #fff; border-color: #e94560;
+            font-weight: 600; min-width: 44px; min-height: 44px;
         }
-
-        .fullscreen-toolbar .exit-btn:active {
-            background: #d63a54;
-            transform: scale(0.95);
-        }
-
+        .fullscreen-toolbar .exit-btn:active { background: #d63a54; transform: scale(0.95); }
         @media (max-width: 768px) {
-            .fullscreen-toolbar .fs-zoom-btn,
-            .fullscreen-toolbar .fs-zoom-label {
-                display: none;
-            }
+            .fullscreen-toolbar .fs-zoom-btn, .fullscreen-toolbar .fs-zoom-label { display: none; }
         }
+        .fullscreen-viewport { flex: 1; overflow: auto; padding: 40px; -webkit-overflow-scrolling: touch; }
+        .fullscreen-viewport .fs-inner { transform-origin: top left; transition: transform 0.15s ease; display: inline-block; }
 
-        .fullscreen-viewport {
-            flex: 1;
-            overflow: auto;
-            padding: 40px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .fullscreen-viewport .fs-inner {
-            transform-origin: top left;
-            transition: transform 0.15s ease;
-            display: inline-block;
-        }
-
-        /* ESC 힌트 - 모바일에서 숨김 */
         .esc-hint {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(61, 61, 61, 0.8);
-            color: #fff;
-            padding: 6px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            z-index: 10000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(61,61,61,0.8); color: #fff; padding: 6px 16px; border-radius: 6px;
+            font-size: 12px; z-index: 10000; pointer-events: none; opacity: 0;
         }
-        @media (max-width: 768px) {
-            .esc-hint { display: none; }
-        }
+        @media (max-width: 768px) { .esc-hint { display: none; } }
+        .fullscreen-overlay.active .esc-hint { animation: fadeHint 3s forwards; }
+        @keyframes fadeHint { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
 
-        .fullscreen-overlay.active .esc-hint {
-            animation: fadeHint 3s forwards;
-        }
-
-        @keyframes fadeHint {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* 핀치 줌 안내 (모바일 전용) */
         .pinch-hint {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(61, 61, 61, 0.8);
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            z-index: 10000;
-            pointer-events: none;
+            display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(61,61,61,0.8); color: #fff; padding: 8px 20px; border-radius: 8px;
+            font-size: 13px; z-index: 10000; pointer-events: none;
         }
         @media (max-width: 768px) {
-            .fullscreen-overlay.active .pinch-hint {
-                display: block;
-                animation: fadeHint 4s forwards;
-            }
+            .fullscreen-overlay.active .pinch-hint { display: block; animation: fadeHint 4s forwards; }
         }
 
-        /* Agent 카드 그리드 */
-        .agent-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
+        /* Agent 카드 */
+        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 32px; }
         .agent-card {
-            background: #ffffff;
-            border: 1px solid #e0dce8;
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.2s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            background: #ffffff; border: 1px solid #e0dce8; border-radius: 10px; padding: 20px;
+            transition: all 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-
-        .agent-card:hover {
-            border-color: #b8a9d4;
-            box-shadow: 0 4px 12px rgba(184,169,212,0.2);
-            transform: translateY(-2px);
-        }
-
+        .agent-card:hover { border-color: #b8a9d4; box-shadow: 0 4px 12px rgba(184,169,212,0.2); transform: translateY(-2px); }
         .agent-card .icon { font-size: 28px; margin-bottom: 10px; }
         .agent-card h3 { font-size: 16px; font-weight: 600; color: #2d2d3d; margin-bottom: 6px; }
         .agent-card p { font-size: 13px; color: #6b6b80; }
         .agent-card .modes { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-        .agent-card .mode-tag {
-            font-size: 11px; padding: 2px 8px; border-radius: 3px;
-            background: #f0ecf5; color: #7c6aa6; border: 1px solid #e0dce8;
+        .agent-card .mode-tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; background: #f0ecf5; color: #7c6aa6; border: 1px solid #e0dce8; }
+        .agent-card .mode-tag.hitl { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+
+        /* HITL 포인트 카드 */
+        .hitl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .hitl-card {
+            background: #fff; border-radius: 12px; padding: 24px;
+            border-left: 4px solid #ff9800; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
+        .hitl-card h3 { font-size: 16px; font-weight: 600; color: #e65100; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .hitl-card .hitl-id { font-size: 11px; background: #ff9800; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+        .hitl-card .hitl-subtitle { font-size: 13px; color: #8888a0; margin-bottom: 14px; }
+        .hitl-card .hitl-what { font-size: 13px; color: #3d3d3d; margin-bottom: 12px; line-height: 1.7; }
+        .hitl-card .hitl-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+        .hitl-card .action-tag { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
 
         /* 데이터 흐름 테이블 */
         .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -400,24 +176,19 @@ layout: null
             background: #fff; border-radius: 8px; overflow: hidden;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04); min-width: 500px;
         }
-        .flow-table th {
-            background: #f0ecf5; color: #7c6aa6; padding: 12px 16px;
-            text-align: left; font-weight: 600; border-bottom: 2px solid #e0dce8;
-        }
+        .flow-table th { background: #f0ecf5; color: #7c6aa6; padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid #e0dce8; }
         .flow-table td { padding: 10px 16px; border-bottom: 1px solid #f0ecf5; color: #4d4d5d; }
         .flow-table tr:hover td { background: #faf8ff; }
-        .flow-table code {
-            background: #f0ecf5; color: #7c6aa6; padding: 2px 6px; border-radius: 3px; font-size: 12px;
-        }
+        .flow-table code { background: #f0ecf5; color: #7c6aa6; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+        .flow-table .hitl-row td { background: #fffbf0; }
+        .flow-table .hitl-badge { display: inline-block; font-size: 10px; background: #ff9800; color: #fff; padding: 1px 6px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
 
-        .phase-label {
-            display: inline-block; padding: 4px 12px; border-radius: 4px;
-            font-size: 12px; font-weight: 600; margin-bottom: 16px;
-        }
+        .phase-label { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
         .phase-pre { background: #dbe9f7; color: #4a7fb5; border: 1px solid #b8d4f0; }
         .phase-live { background: #f7dbe1; color: #c25670; border: 1px solid #f0b8c4; }
         .phase-post { background: #e8ddf7; color: #8b6aaf; border: 1px solid #d4c0e8; }
         .phase-always { background: #dbf0e0; color: #5a9e6a; border: 1px solid #b8e0c0; }
+        .phase-hitl { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
     </style>
 </head>
 <body>
@@ -446,8 +217,9 @@ layout: null
 
 <div class="header">
     <h1>UNX Agent System Architecture</h1>
-    <p>AI-Powered Live Streaming Agent System — 캐릭터 × 방송 세션 단위 학습 루프</p>
-    <span class="badge">v2 — 평가 분산 구조</span>
+    <p>AI-Powered Live Streaming Agent System — 캐릭터 성공 공식을 축적하는 듀얼 루프 구조</p>
+    <span class="badge badge-v3">v3 — HITL 큐레이션</span>
+    <span class="badge badge-hitl">Human-in-the-Loop</span>
 </div>
 
 <div class="container">
@@ -455,26 +227,28 @@ layout: null
     <!-- 에이전트 카드 -->
     <div class="section">
         <h2>에이전트 구성</h2>
-        <p class="subtitle">5개 독립 에이전트, 각각 자체 목표와 평가 사이클 보유</p>
+        <p class="subtitle">5개 AI 에이전트 + 인간 큐레이터(팀원). 🟠 표시는 인간 개입 포인트.</p>
         <div class="agent-grid">
             <div class="agent-card">
                 <div class="icon">🎙️</div>
                 <h3>Live Agent</h3>
-                <p>방송 실행과 실시간 판단. 방송의 전·중·후 전 사이클을 주도하는 핵심 엔진.</p>
+                <p>방송 실행과 실시간 판단. Superon 어드민에서 인간이 캐릭터 등록, 모드 전환, 방송 연결을 제어.</p>
                 <div class="modes">
                     <span class="mode-tag">prepare</span>
                     <span class="mode-tag">on_event</span>
                     <span class="mode-tag">review</span>
+                    <span class="mode-tag hitl">🟠 Superon 어드민</span>
                 </div>
             </div>
             <div class="agent-card">
                 <div class="icon">🔍</div>
                 <h3>Scout Agent</h3>
-                <p>외부 트렌드·소재 탐색. 자동 크롤링 + 수동 트리거로 방송 소재 원재료 수급.</p>
+                <p>서브컬처 트렌드·소재 탐색. 자동 크롤링으로 원재료를 수급하고, 인간이 방향을 보정.</p>
                 <div class="modes">
                     <span class="mode-tag">auto crawl</span>
                     <span class="mode-tag">manual trigger</span>
                     <span class="mode-tag">evaluate</span>
+                    <span class="mode-tag hitl">🟠 HITL 리뷰</span>
                 </div>
             </div>
             <div class="agent-card">
@@ -489,19 +263,32 @@ layout: null
             <div class="agent-card">
                 <div class="icon">🤝</div>
                 <h3>Bond Agent</h3>
-                <p>팬 관계·커뮤니티 관리. 이탈 감지, DM 추천, 세그먼트 분류 등 독자 액션 수행.</p>
+                <p>팬 관계·커뮤니티 관리. 이탈 감지, DM 추천, 세그먼트 분류. 인간이 관계 판단을 보정.</p>
                 <div class="modes">
                     <span class="mode-tag">fan management</span>
                     <span class="mode-tag">evaluate</span>
+                    <span class="mode-tag hitl">🟠 HITL 리뷰</span>
                 </div>
             </div>
             <div class="agent-card">
                 <div class="icon">🎨</div>
                 <h3>Craft Agent</h3>
-                <p>에셋 생성·제작. 스토리보드, 이미지, 영상 클립. 향후 방송 중 실시간 생성 확장.</p>
+                <p>에셋 생성·제작. 스토리보드, 이미지, 영상 클립. 인간이 품질과 세계관 적합성 최종 확인.</p>
                 <div class="modes">
                     <span class="mode-tag">pre-production</span>
                     <span class="mode-tag" style="opacity:0.5">realtime (향후)</span>
+                    <span class="mode-tag hitl">🟠 품질 게이트</span>
+                </div>
+            </div>
+            <div class="agent-card" style="border-color: #ff9800; background: #fffbf0;">
+                <div class="icon">👤</div>
+                <h3>Human Curator (팀원)</h3>
+                <p>큐레이션 대시보드를 통해 AI 에이전트의 산출물을 리뷰하고 전략적 방향을 설정. 캐릭터의 성공 공식을 축적.</p>
+                <div class="modes">
+                    <span class="mode-tag hitl">트렌드 큐레이션</span>
+                    <span class="mode-tag hitl">팬 관계 보정</span>
+                    <span class="mode-tag hitl">소재·에셋 품질 게이트</span>
+                    <span class="mode-tag hitl">Superon 방송 제어</span>
                 </div>
             </div>
         </div>
@@ -509,15 +296,15 @@ layout: null
 
     <!-- 메인 아키텍처 도표 -->
     <div class="section">
-        <h2>전체 데이터 흐름</h2>
-        <p class="subtitle">방송 전·중·후 사이클과 에이전트 간 데이터 교환</p>
+        <h2>전체 데이터 흐름 + HITL</h2>
+        <p class="subtitle">🟠 오렌지 = 인간 개입 포인트 (큐레이션 대시보드 경유)</p>
         <div class="mermaid-wrapper" data-diagram="main">
             <div class="diagram-controls">
                 <button class="zoom-btn" onclick="zoomDiagram('main', -0.1)">−</button>
                 <div class="zoom-label" id="main-zoom-label">100%</div>
                 <button class="zoom-btn" onclick="zoomDiagram('main', 0.1)">+</button>
                 <button class="zoom-btn" onclick="zoomDiagram('main', 0, true)">↺</button>
-                <button class="fullscreen-btn" onclick="openFullscreen('main', '전체 데이터 흐름')">
+                <button class="fullscreen-btn" onclick="openFullscreen('main', '전체 데이터 흐름 + HITL')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
                     전체화면
                 </button>
@@ -527,8 +314,16 @@ layout: null
                     <pre class="mermaid" id="mermaid-main">
 graph TB
     subgraph ALWAYS_ON["🔄 상시 동작"]
-        SCOUT["🔍 Scout Agent<br/>트렌드·소재 탐색<br/><br/>• 자동: 주기적 트렌드 크롤링<br/>• 수동: 방송 추천 소재 생성"]
+        SCOUT["🔍 Scout Agent<br/>서브컬처 트렌드·소재 탐색<br/><br/>• 자동: 주기적 트렌드 크롤링<br/>• 수동: 방송 추천 소재 생성"]
         BOND["🤝 Bond Agent<br/>팬 관계·커뮤니티<br/><br/>• 이탈 위험 팬 DM 추천<br/>• 세그먼트 자동 재분류<br/>• 팬 관계 히스토리 관리"]
+    end
+
+    subgraph HITL_LAYER["🟠 큐레이션 대시보드 — Human-in-the-Loop"]
+        HUMAN["👤 Human Curator<br/>팀원<br/><br/>• 전략적 판단·방향 설정<br/>• AI 산출물 리뷰·보정<br/>• 캐릭터 성공 공식 축적"]
+        TREND_REVIEW["📋 트렌드 큐레이션<br/><br/>• Scout 크롤링 결과 리뷰<br/>• 승인 / 거절 / 어노테이션<br/>• 탐색 방향 지시"]
+        FAN_REVIEW["👥 팬 인사이트 리뷰<br/><br/>• 팬 세그먼트 검증<br/>• 관계 판단 보정<br/>• 오분류 수정"]
+        QUALITY_GATE["✅ 소재·에셋 품질 게이트<br/><br/>• 소재 큐 최종 확인<br/>• 에셋 퀄리티 체크<br/>• 세계관 적합성 판단"]
+        SUPERON["🖥️ Superon 어드민<br/>전체 HITL 허브<br/><br/>• 캐릭터 관리·세계관 프롬프트<br/>• 방송 제어·모드 전환<br/>• 방송 우선순위 설정<br/>• 방송 리뷰 → 액션 라우팅"]
     end
 
     subgraph PRE_BROADCAST["📋 방송 전 Prepare"]
@@ -543,11 +338,8 @@ graph TB
 
     subgraph POST_BROADCAST["📊 방송 후 Review &amp; Evaluate"]
         REVIEW["🎙️ Live Agent ⟨review⟩<br/><br/>• 팩트 기반 세션 정리<br/>• 자기 전략 평가<br/>• 각 에이전트에 신호 배포"]
-        
         PERSONA_EVAL["📖 Persona ⟨evaluate⟩<br/><br/>• 소재별 캐릭터 적합도 평가<br/>• content_pool 스코어 업데이트<br/>• 캐릭터 가이드라인 미세 조정"]
-        
         BOND_EVAL["🤝 Bond ⟨evaluate⟩<br/><br/>• 팬 세그먼트별 반응 해석<br/>• fan_memory 업데이트<br/>• DM 추천 큐잉"]
-        
         SCOUT_EVAL["🔍 Scout ⟨evaluate⟩<br/><br/>• 트렌드 적중률 평가<br/>• 탐색 전략 보정<br/>• 탐색 우선순위 재조정"]
     end
 
@@ -555,41 +347,69 @@ graph TB
     FAN_MEMORY[("👥 Fan Memory<br/>팬 프로필·관계·히스토리")]
     ASSET_STORE[("🗂️ Asset Store<br/>영상·이미지·프리셋")]
 
-    SCOUT -->|"raw_trends<br/>트렌드 원재료"| PERSONA
-    PERSONA -->|"adapted_content<br/>캐릭터 맞춤 소재"| CONTENT_POOL
-    BOND -->|"팬 관계 관리<br/>DM 추천, 세그먼트 관리"| FAN_MEMORY
+    %% 상시 → HITL 큐레이션
+    SCOUT -->|"raw_trends<br/>크롤링 결과"| TREND_REVIEW
+    TREND_REVIEW -->|"승인된 소재 +<br/>어노테이션"| PERSONA
+    BOND -->|"팬 분석 결과<br/>세그먼트·관계 그래프"| FAN_REVIEW
+    FAN_REVIEW -->|"보정된 팬 데이터"| FAN_MEMORY
 
-    CONTENT_POOL -->|"우선순위 소재 목록"| PREPARE
+    HUMAN --- TREND_REVIEW
+    HUMAN --- FAN_REVIEW
+    HUMAN --- QUALITY_GATE
+    HUMAN --- SUPERON
+
+    SUPERON -->|"캐릭터 설정<br/>모드·LLM 구성"| PREPARE
+    SUPERON -->|"TikTok RoomID<br/>방송 시작·중지"| LIVE_BRAIN
+
+    %% Persona → Content Pool → 품질 게이트
+    PERSONA -->|"adapted_content<br/>캐릭터 맞춤 소재"| CONTENT_POOL
+
+    CONTENT_POOL -->|"소재 큐<br/>리뷰 요청"| QUALITY_GATE
+    ASSET_STORE -->|"에셋 리뷰 요청"| QUALITY_GATE
+    QUALITY_GATE -->|"승인된 소재·에셋"| PREPARE
+
+    %% 기존 방송 전 흐름
     FAN_MEMORY -->|"VIP 팬 리스트<br/>주목 팬 알림"| PREPARE
     PERSONA -->|"캐릭터 설정 스냅샷<br/>말투·성격·금기사항"| PREPARE
     PREPARE -->|"에셋 제작 요청"| CRAFT
     CRAFT -->|"제작된 에셋"| ASSET_STORE
     PREPARE -->|"BroadcastStrategy"| LIVE_BRAIN
 
+    %% 방송 중 tool 호출
     CONTENT_POOL -.->|"tool: fetch_content()"| LIVE_BRAIN
     FAN_MEMORY -.->|"tool: lookup_fan()"| LIVE_BRAIN
     ASSET_STORE -.->|"tool: fetch_asset()"| LIVE_BRAIN
     PERSONA -.->|"tool: check_persona()"| LIVE_BRAIN
 
+    %% 방송 후
     LIVE_BRAIN -->|"session_log"| REVIEW
-
-    REVIEW -->|"FanSignals<br/>팬 활동 기록·주목 이벤트"| BOND_EVAL
-    REVIEW -->|"ContentSignals<br/>소재 성과·콘텐츠 갭"| PERSONA_EVAL
-    REVIEW -->|"ContentSignals<br/>트렌드 적중·청중 관심사"| SCOUT_EVAL
+    REVIEW -->|"FanSignals"| BOND_EVAL
+    REVIEW -->|"ContentSignals"| PERSONA_EVAL
+    REVIEW -->|"ContentSignals"| SCOUT_EVAL
     REVIEW -->|"StrategyFeedback<br/>→ 다음 prepare"| PREPARE
+    REVIEW -->|"세션 리포트<br/>→ 인간 리뷰"| SUPERON
 
-    PERSONA_EVAL -->|"소재 스코어 업데이트<br/>캐릭터 가이드 보정"| CONTENT_POOL
+    PERSONA_EVAL -->|"소재 스코어 업데이트"| CONTENT_POOL
     PERSONA_EVAL -->|"페르소나 미세 조정"| PERSONA
-    BOND_EVAL -->|"팬 데이터 업데이트<br/>DM 큐잉"| FAN_MEMORY
+    BOND_EVAL -->|"팬 데이터 업데이트"| FAN_MEMORY
     SCOUT_EVAL -->|"탐색 우선순위 보정"| SCOUT
 
+    %% 스타일
     style ALWAYS_ON fill:#e8f5e9,stroke:#81c784,color:#2d3d2f
+    style HITL_LAYER fill:#fff8e1,stroke:#ff9800,color:#4e342e,stroke-width:3px
     style PRE_BROADCAST fill:#e3f2fd,stroke:#64b5f6,color:#2d3d4f
     style LIVE fill:#fce4ec,stroke:#e57373,color:#3d2d2f,stroke-width:3px
     style POST_BROADCAST fill:#ede7f6,stroke:#b39ddb,color:#3d2d4f
 
     style SCOUT fill:#c8e6c9,stroke:#66bb6a,color:#2d3d2f
     style BOND fill:#c8e6c9,stroke:#66bb6a,color:#2d3d2f
+
+    style HUMAN fill:#ff9800,stroke:#e65100,color:#fff,stroke-width:2px
+    style TREND_REVIEW fill:#fff3e0,stroke:#ff9800,color:#4e342e
+    style FAN_REVIEW fill:#fff3e0,stroke:#ff9800,color:#4e342e
+    style QUALITY_GATE fill:#fff3e0,stroke:#ff9800,color:#4e342e
+    style SUPERON fill:#fff3e0,stroke:#ff9800,color:#4e342e
+
     style PERSONA fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
     style CRAFT fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
     style PREPARE fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
@@ -608,44 +428,155 @@ graph TB
         </div>
     </div>
 
-    <!-- 학습 루프 -->
+    <!-- 듀얼 루프 도표 -->
     <div class="section">
-        <h2>학습 루프</h2>
-        <p class="subtitle">캐릭터 × 방송 세션 단위로 반복되는 개선 사이클</p>
-        <div class="mermaid-wrapper" data-diagram="loop">
+        <h2>듀얼 루프 구조</h2>
+        <p class="subtitle">방송 세션 루프(전술 자동) + 전략 큐레이션 루프(HITL) — 두 루프가 독립적으로 회전하며 캐릭터 성공 공식 축적</p>
+        <div class="mermaid-wrapper" data-diagram="dual">
             <div class="diagram-controls">
-                <button class="zoom-btn" onclick="zoomDiagram('loop', -0.1)">−</button>
-                <div class="zoom-label" id="loop-zoom-label">100%</div>
-                <button class="zoom-btn" onclick="zoomDiagram('loop', 0.1)">+</button>
-                <button class="zoom-btn" onclick="zoomDiagram('loop', 0, true)">↺</button>
-                <button class="fullscreen-btn" onclick="openFullscreen('loop', '학습 루프')">
+                <button class="zoom-btn" onclick="zoomDiagram('dual', -0.1)">−</button>
+                <div class="zoom-label" id="dual-zoom-label">100%</div>
+                <button class="zoom-btn" onclick="zoomDiagram('dual', 0.1)">+</button>
+                <button class="zoom-btn" onclick="zoomDiagram('dual', 0, true)">↺</button>
+                <button class="fullscreen-btn" onclick="openFullscreen('dual', '듀얼 루프 구조')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
                     전체화면
                 </button>
             </div>
-            <div class="mermaid-viewport" id="loop-viewport">
-                <div class="mermaid-inner" id="loop-inner">
-                    <pre class="mermaid" id="mermaid-loop">
-graph LR
-    S1["🎙️ 방송 N<br/>on_event"] --> R1["📊 Review<br/>팩트 정리"]
-    R1 --> E1["🔍📖🤝<br/>각 에이전트<br/>자기 관점 평가"]
-    E1 --> U1["💾 DB 업데이트<br/>Content Pool<br/>Fan Memory<br/>탐색 전략"]
-    U1 --> P2["📋 Prepare<br/>보정된 전략"]
-    P2 --> S2["🎙️ 방송 N+1<br/>on_event"]
+            <div class="mermaid-viewport" id="dual-viewport">
+                <div class="mermaid-inner" id="dual-inner">
+                    <pre class="mermaid" id="mermaid-dual">
+graph TB
+    subgraph LOOP1["⚡ 루프 1: 방송 세션 루프 — 전술 자동"]
+        direction LR
+        P1["📋 Prepare<br/>전략 수립"] --> ON1["🎙️ On-Air<br/>실시간 방송"]
+        ON1 --> RV1["📊 Review<br/>세션 평가"]
+        RV1 --> EV1["🔍📖🤝<br/>에이전트 자체 평가"]
+        EV1 --> DB1["💾 데이터 풀<br/>자동 업데이트"]
+        DB1 --> P1
+    end
 
-    style S1 fill:#ef9a9a,color:#3d1f1f,stroke:#e57373
-    style R1 fill:#ce93d8,color:#fff,stroke:#ab47bc
-    style E1 fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
-    style U1 fill:#bbdefb,color:#2d3d4f,stroke:#64b5f6
-    style P2 fill:#bbdefb,color:#2d3d4f,stroke:#64b5f6
-    style S2 fill:#ef9a9a,color:#3d1f1f,stroke:#e57373
+    subgraph LOOP2["🟠 루프 2: 전략 큐레이션 루프 — HITL (Superon 허브)"]
+        direction LR
+        AGENTS["🤖 에이전트 산출물<br/>Scout 크롤링<br/>Bond 팬 분석<br/>소재·에셋<br/>방송 리뷰"]
+        AGENTS --> DASH["🖥️ Superon 어드민<br/>7개 탭 통합 대시보드<br/>트렌드 · 팬 · 소재 · 리뷰<br/>캐릭터 · 방송 · 우선순위"]
+        DASH --> HM["👤 인간 리뷰<br/>승인·거절·어노테이션<br/>방향 지시·보정<br/>가치 판단·라우팅"]
+        HM --> GUIDE["📝 가이드라인 업데이트<br/>세계관 프롬프트 반영<br/>탐색 방향·팬 관계 보정<br/>방송 전략 우선순위"]
+        GUIDE --> AGENTS
+    end
+
+    DB1 -.->|"방송 성과 데이터<br/>→ 큐레이션 참고"| DASH
+    GUIDE -.->|"보정된 가이드라인<br/>→ 다음 방송 반영"| P1
+
+    style LOOP1 fill:#fce4ec,stroke:#e57373,color:#3d2d2f,stroke-width:2px
+    style LOOP2 fill:#fff8e1,stroke:#ff9800,color:#4e342e,stroke-width:3px
+
+    style P1 fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
+    style ON1 fill:#ef9a9a,stroke:#e57373,color:#3d1f1f
+    style RV1 fill:#ce93d8,stroke:#ab47bc,color:#fff
+    style EV1 fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
+    style DB1 fill:#bbdefb,stroke:#64b5f6,color:#2d3d4f
+
+    style AGENTS fill:#c8e6c9,stroke:#66bb6a,color:#2d3d2f
+    style DASH fill:#fff3e0,stroke:#ff9800,color:#4e342e
+    style HM fill:#ff9800,stroke:#e65100,color:#fff,stroke-width:2px
+    style GUIDE fill:#fff3e0,stroke:#ff9800,color:#4e342e
                     </pre>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 데이터 흐름 테이블 -->
+    <!-- HITL 포인트 상세 -->
+    <div class="section">
+        <h2>HITL 포인트 상세</h2>
+        <p class="subtitle">인간이 에이전트와 협업으로 의사판단을 하는 4개 지점. 각각 웹 대시보드에 매핑됨.</p>
+        <div class="hitl-grid">
+            <div class="hitl-card">
+                <h3><span class="hitl-id">HITL-1</span> 트렌드 큐레이션</h3>
+                <div class="hitl-subtitle">Scout Agent → 👤 Human → Persona Agent</div>
+                <div class="hitl-what">
+                    Scout가 크롤링한 서브컬처 트렌드 원재료(밈, 뉴스, 토픽, 커뮤니티 반응)를 인간이 리뷰. 단순 승인/거절이 아니라 <strong>맥락 어노테이션</strong>을 추가 — "이 밈은 캐릭터 A의 츤데레 설정과 연결", "이 토픽은 다음 주 방송 오프닝에 활용" 등. 이 어노테이션이 Persona Agent의 소재 가공 품질을 결정적으로 높임. 또한 Scout의 크롤링 방향 자체를 보정 — 어떤 커뮤니티, 어떤 키워드를 더 주시할지 전략적으로 지시.
+                </div>
+                <div class="hitl-actions">
+                    <span class="action-tag">승인 / 거절 / 보류</span>
+                    <span class="action-tag">맥락 어노테이션</span>
+                    <span class="action-tag">크롤링 방향 지시</span>
+                    <span class="action-tag">우선순위 태깅</span>
+                </div>
+            </div>
+            <div class="hitl-card">
+                <h3><span class="hitl-id">HITL-2</span> 팬 인사이트 리뷰</h3>
+                <div class="hitl-subtitle">Bond Agent → 👤 Human → Fan Memory</div>
+                <div class="hitl-what">
+                    Bond가 자동 분석한 팬 세그먼트, 관계 그래프, 이탈 예측, VIP 식별을 인간이 검증. AI가 "VIP"로 판단했는데 실제로는 어그로인 경우, 반대로 조용하지만 핵심 팬을 놓치는 경우를 <strong>인간의 맥락 판단으로 보정</strong>. 찐팬의 연결 구조를 제대로 이해하려면 AI 분석만으로는 부족한 뉘앙스가 있음 — DM 톤, 방송 중 행동 패턴, 커뮤니티 영향력 등. 보정 피드백이 Bond의 다음 분석에 반영됨.
+                </div>
+                <div class="hitl-actions">
+                    <span class="action-tag">세그먼트 보정</span>
+                    <span class="action-tag">VIP 재분류</span>
+                    <span class="action-tag">관계 판단 오버라이드</span>
+                    <span class="action-tag">DM 추천 승인</span>
+                </div>
+            </div>
+            <div class="hitl-card">
+                <h3><span class="hitl-id">HITL-3</span> 소재·에셋 품질 게이트</h3>
+                <div class="hitl-subtitle">Content Pool + Asset Store → 👤 Human → Prepare</div>
+                <div class="hitl-what">
+                    Persona가 가공한 소재와 Craft가 제작한 에셋이 방송 큐에 들어가기 전 <strong>인간이 최종 확인</strong>. 캐릭터 세계관과의 정합성, 퀄리티 기준, 타이밍 적절성을 종합 판단. 이 게이트가 가장 임팩트가 큰 HITL — 방송에 실제로 무엇을 쓸지를 결정. 거절된 소재에 대한 피드백("왜 안 되는지")이 Persona와 Craft의 가이드라인 보정에 활용됨.
+                </div>
+                <div class="hitl-actions">
+                    <span class="action-tag">소재 큐 편집</span>
+                    <span class="action-tag">에셋 품질 체크</span>
+                    <span class="action-tag">세계관 적합성 판단</span>
+                    <span class="action-tag">거절 피드백</span>
+                </div>
+            </div>
+            <div class="hitl-card" style="grid-column: 1 / -1;">
+                <h3><span class="hitl-id">HITL-4</span> Superon 어드민 — 전체 HITL 허브</h3>
+                <div class="hitl-subtitle">👤 Human ↔ 전 에이전트 — 이미 구축된 시스템을 중심으로 HITL-1~3을 탭으로 통합</div>
+                <div class="hitl-what">
+                    기존에 구축된 Superon 어드민을 <strong>전체 HITL 통합 허브</strong>로 고도화. 7개 탭 구조로 모든 인간 개입 포인트를 하나의 웹 대시보드에서 관리.
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 14px;">
+                    <div style="background:#fff8e1; border:1px solid #ffcc80; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#e65100; margin-bottom:4px;">🎭 캐릭터 관리</div>
+                        <div style="font-size:12px; color:#6b6b80;">프롬프트 등록·편집, 리뷰에서 올라온 세계관 업데이트 제안 확인·승인, 영상 클립 관리</div>
+                    </div>
+                    <div style="background:#fff8e1; border:1px solid #ffcc80; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#e65100; margin-bottom:4px;">📡 방송 제어</div>
+                        <div style="font-size:12px; color:#6b6b80;">TikTok RoomID 연동, 크리에이터/에이전트 모드 전환, LLM·TTS 테스트</div>
+                    </div>
+                    <div style="background:#fff8e1; border:1px solid #ffcc80; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#e65100; margin-bottom:4px;">⚖️ 방송 우선순위</div>
+                        <div style="font-size:12px; color:#6b6b80;">세션별 전략 가중치 설정 — 팬 케어 vs 신규 유입 vs 소재 소화. 에이전트 간 충돌 방지</div>
+                    </div>
+                    <div style="background:#fce4ec; border:1px solid #f0b8c4; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#c25670; margin-bottom:4px;">📊 방송 리뷰 <span style="font-size:10px; background:#e57373; color:#fff; padding:1px 6px; border-radius:3px;">라우터</span></div>
+                        <div style="font-size:12px; color:#6b6b80;">세션 리포트 확인 → 가치 판단 → 다른 탭으로 액션 라우팅. "이건 반영하자" 판단의 트리거 포인트</div>
+                    </div>
+                    <div style="background:#e8f5e9; border:1px solid #b8e0c0; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#2e7d32; margin-bottom:4px;">🔍 트렌드 피드 <span style="font-size:10px; background:#ff9800; color:#fff; padding:1px 6px; border-radius:3px;">HITL-1</span></div>
+                        <div style="font-size:12px; color:#6b6b80;">Scout 크롤링 결과 리뷰·어노테이션, 크롤링 방향 지시</div>
+                    </div>
+                    <div style="background:#e8f5e9; border:1px solid #b8e0c0; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#2e7d32; margin-bottom:4px;">👥 팬 인사이트 <span style="font-size:10px; background:#ff9800; color:#fff; padding:1px 6px; border-radius:3px;">HITL-2</span></div>
+                        <div style="font-size:12px; color:#6b6b80;">Bond 분석 검증·보정, 세그먼트 재분류, VIP 판단 오버라이드</div>
+                    </div>
+                    <div style="background:#e8f5e9; border:1px solid #b8e0c0; border-radius:8px; padding:12px;">
+                        <div style="font-weight:600; font-size:13px; color:#2e7d32; margin-bottom:4px;">✅ 소재·에셋 큐 <span style="font-size:10px; background:#ff9800; color:#fff; padding:1px 6px; border-radius:3px;">HITL-3</span></div>
+                        <div style="font-size:12px; color:#6b6b80;">Content Pool + Asset Store 품질 게이트, 방송 큐 최종 편집</div>
+                    </div>
+                </div>
+                <div style="margin-top:14px; padding:12px; background:#f5f0ff; border-radius:8px; border:1px solid #e0dce8;">
+                    <div style="font-size:12px; color:#7c6aa6; line-height:1.7;">
+                        <strong>방송 리뷰 탭의 액션 라우팅:</strong> 리뷰 데이터에서 "이 소재 반응이 좋았다" → <em>캐릭터 관리</em>(세계관 프롬프트 반영) | <em>트렌드 피드</em>(Scout 탐색 방향 보정) | <em>방송 우선순위</em>(다음 세션 가중치 조정) | <em>확인만</em>(자동 처리에 위임)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 데이터 흐름 상세 -->
     <div class="section">
         <h2>데이터 흐름 상세</h2>
 
@@ -662,12 +593,26 @@ graph LR
         </div>
 
         <br/>
+        <span class="phase-label phase-hitl">🟠 HITL 큐레이션 (상시 / 비동기)</span>
+        <div class="table-scroll">
+        <table class="flow-table">
+            <thead><tr><th>From</th><th>To</th><th>데이터</th><th>인간 액션</th></tr></thead>
+            <tbody>
+                <tr class="hitl-row"><td>Scout<span class="hitl-badge">HITL-1</span></td><td>👤 → Persona</td><td>승인된 <code>raw_trends</code> + 어노테이션</td><td>승인/거절, 맥락 메모, 크롤링 방향 지시</td></tr>
+                <tr class="hitl-row"><td>Bond<span class="hitl-badge">HITL-2</span></td><td>👤 → Fan Memory</td><td>보정된 팬 세그먼트·관계 데이터</td><td>세그먼트 보정, VIP 재분류, 관계 오버라이드</td></tr>
+                <tr class="hitl-row"><td>Content Pool + Asset Store<span class="hitl-badge">HITL-3</span></td><td>👤 → Prepare</td><td>승인된 소재 큐 + 에셋</td><td>소재 큐 편집, 에셋 품질 체크, 거절 피드백</td></tr>
+                <tr class="hitl-row"><td>👤 Superon 어드민<span class="hitl-badge">HITL-4</span></td><td>👤 ↔ Live Agent</td><td>캐릭터 설정, 모드 전환, RoomID</td><td>캐릭터 등록, 크리에이터/에이전트 모드, LLM·TTS 테스트</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <br/>
         <span class="phase-label phase-pre">📋 방송 전 (Prepare)</span>
         <div class="table-scroll">
         <table class="flow-table">
             <thead><tr><th>From</th><th>To</th><th>데이터</th><th>설명</th></tr></thead>
             <tbody>
-                <tr><td>Content Pool</td><td>Live [prepare]</td><td>우선순위 소재 목록</td><td>이번 방송에 쓸 소재 큐</td></tr>
+                <tr class="hitl-row"><td>👤 품질 게이트</td><td>Live [prepare]</td><td>승인된 소재 큐 + 에셋</td><td>인간이 확인한 최종 방송 소재</td></tr>
                 <tr><td>Fan Memory</td><td>Live [prepare]</td><td>VIP 팬 리스트 + 알림</td><td>주목할 팬, 최근 행동 요약</td></tr>
                 <tr><td>Persona</td><td>Live [prepare]</td><td>캐릭터 설정 스냅샷</td><td>말투, 성격, 금기사항</td></tr>
                 <tr><td>Live [prepare]</td><td>Craft</td><td>에셋 제작 요청</td><td>스토리보드, 필요 이미지 목록</td></tr>
@@ -743,7 +688,7 @@ graph LR
     });
 
     /* ===== 인라인 줌 ===== */
-    const zoomState = { main: { scale: 1 }, loop: { scale: 1 } };
+    var zoomState = { main: { scale: 1 }, dual: { scale: 1 } };
 
     function zoomDiagram(id, delta, reset) {
         if (reset) zoomState[id].scale = 1;
@@ -760,60 +705,34 @@ graph LR
         var fsInner = document.getElementById('fsInner');
         var fsTitle = document.getElementById('fsTitle');
 
-        // Mermaid가 렌더링한 SVG 찾기
         var source = document.getElementById('mermaid-' + diagramId);
         var svg = null;
         if (source) {
-            // mermaid가 pre를 svg로 교체했을 수 있음
-            if (source.tagName === 'svg' || source.tagName === 'SVG') {
-                svg = source;
-            } else {
-                svg = source.querySelector('svg');
-                if (!svg && source.nextElementSibling && source.nextElementSibling.tagName === 'SVG') {
-                    svg = source.nextElementSibling;
-                }
-            }
+            if (source.tagName === 'svg' || source.tagName === 'SVG') { svg = source; }
+            else { svg = source.querySelector('svg'); if (!svg && source.nextElementSibling && (source.nextElementSibling.tagName === 'SVG' || source.nextElementSibling.tagName === 'svg')) { svg = source.nextElementSibling; } }
         }
-        // fallback: inner 안의 svg
-        if (!svg) {
-            var inner = document.getElementById(diagramId + '-inner');
-            svg = inner.querySelector('svg');
-        }
+        if (!svg) { var inner = document.getElementById(diagramId + '-inner'); svg = inner.querySelector('svg'); }
 
-        if (svg) {
-            fsInner.innerHTML = svg.outerHTML;
-        }
+        if (svg) { fsInner.innerHTML = svg.outerHTML; }
 
         fsTitle.textContent = title;
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-
-        // fit to screen
-        requestAnimationFrame(function() {
-            fitToScreen();
-        });
+        requestAnimationFrame(function() { fitToScreen(); });
     }
 
     function fitToScreen() {
         var viewport = document.getElementById('fsViewport');
         var inner = document.getElementById('fsInner');
         var svg = inner.querySelector('svg');
-
         if (svg) {
-            // 먼저 스케일 리셋해서 원본 크기 측정
             inner.style.transform = 'scale(1)';
             var vw = viewport.clientWidth - 80;
             var vh = viewport.clientHeight - 80;
-
             requestAnimationFrame(function() {
                 var rect = svg.getBoundingClientRect();
-                var sw = rect.width;
-                var sh = rect.height;
-                if (sw > 0 && sh > 0) {
-                    fsScale = Math.min(vw / sw, vh / sh, 2.5);
-                } else {
-                    fsScale = 1;
-                }
+                if (rect.width > 0 && rect.height > 0) { fsScale = Math.min(vw / rect.width, vh / rect.height, 2.5); }
+                else { fsScale = 1; }
                 inner.style.transform = 'scale(' + fsScale + ')';
                 document.getElementById('fsZoomLabel').textContent = Math.round(fsScale * 100) + '%';
             });
@@ -821,143 +740,68 @@ graph LR
     }
 
     function exitFullscreen() {
-        var overlay = document.getElementById('fullscreenOverlay');
-        overlay.classList.remove('active');
+        document.getElementById('fullscreenOverlay').classList.remove('active');
         document.body.style.overflow = '';
         fsScale = 1;
         document.getElementById('fsInner').innerHTML = '';
     }
 
     function fsZoom(delta, reset) {
-        if (reset) {
-            fitToScreen();
-            return;
-        }
+        if (reset) { fitToScreen(); return; }
         fsScale = Math.max(0.15, Math.min(5, fsScale + delta));
         document.getElementById('fsInner').style.transform = 'scale(' + fsScale + ')';
         document.getElementById('fsZoomLabel').textContent = Math.round(fsScale * 100) + '%';
     }
 
-    // 나가기 버튼 — touchend + click 둘 다 처리 (모바일 확실하게)
+    // 나가기 버튼 — touchend + click
     (function() {
         var btn = document.getElementById('exitBtn');
         var handled = false;
-
-        btn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            handled = true;
-            exitFullscreen();
-        }, { passive: false });
-
-        btn.addEventListener('click', function(e) {
-            if (handled) { handled = false; return; }
-            exitFullscreen();
-        });
+        btn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); handled = true; exitFullscreen(); }, { passive: false });
+        btn.addEventListener('click', function(e) { if (handled) { handled = false; return; } exitFullscreen(); });
     })();
 
-    // ESC 키
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') exitFullscreen();
-    });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') exitFullscreen(); });
 
     // 전체화면 뷰포트 — 마우스 휠 줌
-    document.getElementById('fsViewport').addEventListener('wheel', function(e) {
-        e.preventDefault();
-        fsZoom(e.deltaY > 0 ? -0.08 : 0.08);
-    }, { passive: false });
+    document.getElementById('fsViewport').addEventListener('wheel', function(e) { e.preventDefault(); fsZoom(e.deltaY > 0 ? -0.08 : 0.08); }, { passive: false });
 
     // 전체화면 뷰포트 — 마우스 드래그
     (function() {
         var vp = document.getElementById('fsViewport');
-        var dragging = false, sx, sy, sl, st;
-        vp.addEventListener('mousedown', function(e) { dragging = true; sx = e.pageX; sy = e.pageY; sl = vp.scrollLeft; st = vp.scrollTop; });
-        vp.addEventListener('mouseup', function() { dragging = false; });
-        vp.addEventListener('mouseleave', function() { dragging = false; });
-        vp.addEventListener('mousemove', function(e) {
-            if (!dragging) return;
-            e.preventDefault();
-            vp.scrollLeft = sl - (e.pageX - sx);
-            vp.scrollTop = st - (e.pageY - sy);
-        });
+        var d = false, sx, sy, sl, st;
+        vp.addEventListener('mousedown', function(e) { d = true; sx = e.pageX; sy = e.pageY; sl = vp.scrollLeft; st = vp.scrollTop; });
+        vp.addEventListener('mouseup', function() { d = false; });
+        vp.addEventListener('mouseleave', function() { d = false; });
+        vp.addEventListener('mousemove', function(e) { if (!d) return; e.preventDefault(); vp.scrollLeft = sl - (e.pageX - sx); vp.scrollTop = st - (e.pageY - sy); });
     })();
 
     // 전체화면 뷰포트 — 터치 드래그
     (function() {
         var vp = document.getElementById('fsViewport');
         var sx, sy, sl, st;
-        vp.addEventListener('touchstart', function(e) {
-            if (e.touches.length === 1) {
-                sx = e.touches[0].pageX; sy = e.touches[0].pageY;
-                sl = vp.scrollLeft; st = vp.scrollTop;
-            }
-        }, { passive: true });
-        vp.addEventListener('touchmove', function(e) {
-            if (e.touches.length === 1) {
-                vp.scrollLeft = sl - (e.touches[0].pageX - sx);
-                vp.scrollTop = st - (e.touches[0].pageY - sy);
-            }
-        }, { passive: true });
+        vp.addEventListener('touchstart', function(e) { if (e.touches.length === 1) { sx = e.touches[0].pageX; sy = e.touches[0].pageY; sl = vp.scrollLeft; st = vp.scrollTop; } }, { passive: true });
+        vp.addEventListener('touchmove', function(e) { if (e.touches.length === 1) { vp.scrollLeft = sl - (e.touches[0].pageX - sx); vp.scrollTop = st - (e.touches[0].pageY - sy); } }, { passive: true });
     })();
 
-    // 전체화면 뷰포트 — 핀치 줌 (2 finger)
+    // 전체화면 — 핀치 줌
     (function() {
         var vp = document.getElementById('fsViewport');
-        var lastDist = 0;
-        vp.addEventListener('touchstart', function(e) {
-            if (e.touches.length === 2) {
-                var dx = e.touches[0].pageX - e.touches[1].pageX;
-                var dy = e.touches[0].pageY - e.touches[1].pageY;
-                lastDist = Math.sqrt(dx * dx + dy * dy);
-            }
-        }, { passive: true });
-        vp.addEventListener('touchmove', function(e) {
-            if (e.touches.length === 2) {
-                e.preventDefault();
-                var dx = e.touches[0].pageX - e.touches[1].pageX;
-                var dy = e.touches[0].pageY - e.touches[1].pageY;
-                var dist = Math.sqrt(dx * dx + dy * dy);
-                if (lastDist > 0) {
-                    var delta = (dist - lastDist) * 0.005;
-                    fsZoom(delta);
-                }
-                lastDist = dist;
-            }
-        }, { passive: false });
-        vp.addEventListener('touchend', function() { lastDist = 0; }, { passive: true });
+        var ld = 0;
+        vp.addEventListener('touchstart', function(e) { if (e.touches.length === 2) { var dx = e.touches[0].pageX - e.touches[1].pageX, dy = e.touches[0].pageY - e.touches[1].pageY; ld = Math.sqrt(dx*dx+dy*dy); } }, { passive: true });
+        vp.addEventListener('touchmove', function(e) { if (e.touches.length === 2) { e.preventDefault(); var dx = e.touches[0].pageX - e.touches[1].pageX, dy = e.touches[0].pageY - e.touches[1].pageY, dist = Math.sqrt(dx*dx+dy*dy); if (ld > 0) fsZoom((dist - ld) * 0.005); ld = dist; } }, { passive: false });
+        vp.addEventListener('touchend', function() { ld = 0; }, { passive: true });
     })();
 
     // 인라인 뷰포트 — 드래그 (mouse + touch)
-    document.querySelectorAll('.mermaid-viewport:not(#fsViewport)').forEach(function(viewport) {
-        var isDragging = false, startX, startY, scrollLeft, scrollTop;
-
-        viewport.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            startX = e.pageX; startY = e.pageY;
-            scrollLeft = viewport.scrollLeft; scrollTop = viewport.scrollTop;
-        });
-        viewport.addEventListener('mouseup', function() { isDragging = false; });
-        viewport.addEventListener('mouseleave', function() { isDragging = false; });
-        viewport.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            viewport.scrollLeft = scrollLeft - (e.pageX - startX);
-            viewport.scrollTop = scrollTop - (e.pageY - startY);
-        });
-
-        // touch
-        viewport.addEventListener('touchstart', function(e) {
-            if (e.touches.length === 1) {
-                startX = e.touches[0].pageX; startY = e.touches[0].pageY;
-                scrollLeft = viewport.scrollLeft; scrollTop = viewport.scrollTop;
-            }
-        }, { passive: true });
-        viewport.addEventListener('touchmove', function(e) {
-            if (e.touches.length === 1) {
-                viewport.scrollLeft = scrollLeft - (e.touches[0].pageX - startX);
-                viewport.scrollTop = scrollTop - (e.touches[0].pageY - startY);
-            }
-        }, { passive: true });
+    document.querySelectorAll('.mermaid-viewport:not(#fsViewport)').forEach(function(vp) {
+        var d = false, sx, sy, sl, st;
+        vp.addEventListener('mousedown', function(e) { d = true; sx = e.pageX; sy = e.pageY; sl = vp.scrollLeft; st = vp.scrollTop; });
+        vp.addEventListener('mouseup', function() { d = false; });
+        vp.addEventListener('mouseleave', function() { d = false; });
+        vp.addEventListener('mousemove', function(e) { if (!d) return; e.preventDefault(); vp.scrollLeft = sl - (e.pageX - sx); vp.scrollTop = st - (e.pageY - sy); });
+        vp.addEventListener('touchstart', function(e) { if (e.touches.length === 1) { sx = e.touches[0].pageX; sy = e.touches[0].pageY; sl = vp.scrollLeft; st = vp.scrollTop; } }, { passive: true });
+        vp.addEventListener('touchmove', function(e) { if (e.touches.length === 1) { vp.scrollLeft = sl - (e.touches[0].pageX - sx); vp.scrollTop = st - (e.touches[0].pageY - sy); } }, { passive: true });
     });
 </script>
 
