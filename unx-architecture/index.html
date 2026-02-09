@@ -82,7 +82,7 @@ layout: null
             margin-bottom: 24px;
         }
 
-        /* 확대/축소 가능한 Mermaid 래퍼 */
+        /* Mermaid 래퍼 */
         .mermaid-wrapper {
             background: #ffffff;
             border: 1px solid #e0dce8;
@@ -90,6 +90,35 @@ layout: null
             padding: 20px;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+
+        .mermaid-wrapper:hover {
+            box-shadow: 0 4px 20px rgba(124, 106, 166, 0.15);
+        }
+
+        /* 클릭 힌트 */
+        .fullscreen-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #aaa4b8;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .mermaid-wrapper:hover .fullscreen-hint {
+            color: #7c6aa6;
+        }
+
+        .fullscreen-hint svg {
+            width: 14px;
+            height: 14px;
         }
 
         .zoom-controls {
@@ -156,6 +185,140 @@ layout: null
             justify-content: center;
         }
 
+        /* ===== 전체화면 오버레이 ===== */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(248, 246, 242, 0.97);
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: #fff;
+            border-bottom: 1px solid #e0dce8;
+            flex-shrink: 0;
+        }
+
+        .fullscreen-toolbar .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #7c6aa6;
+        }
+
+        .fullscreen-toolbar .toolbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fullscreen-toolbar button {
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid #e0dce8;
+            background: #fff;
+            color: #7c6aa6;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .fullscreen-toolbar button:hover {
+            background: #f0ecf5;
+            border-color: #b8a9d4;
+        }
+
+        .fullscreen-toolbar button.zoom-btn {
+            width: 36px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .fullscreen-toolbar .fs-zoom-label {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            height: 36px;
+            font-size: 12px;
+            color: #8888a0;
+            background: #f8f6ff;
+            border-radius: 8px;
+            border: 1px solid #e0dce8;
+        }
+
+        .fullscreen-toolbar .exit-btn {
+            padding: 0 16px;
+            gap: 6px;
+            background: #7c6aa6;
+            color: #fff;
+            border-color: #7c6aa6;
+        }
+
+        .fullscreen-toolbar .exit-btn:hover {
+            background: #6b5a94;
+        }
+
+        .fullscreen-viewport {
+            flex: 1;
+            overflow: auto;
+            cursor: grab;
+            padding: 40px;
+        }
+
+        .fullscreen-viewport:active {
+            cursor: grabbing;
+        }
+
+        .fullscreen-viewport .fs-inner {
+            transform-origin: top left;
+            transition: transform 0.15s ease;
+            display: inline-block;
+        }
+
+        /* ESC 힌트 */
+        .esc-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(61, 61, 61, 0.8);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 10000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .fullscreen-overlay.active .esc-hint {
+            animation: fadeHint 3s forwards;
+        }
+
+        @keyframes fadeHint {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         /* Agent 카드 그리드 */
         .agent-grid {
             display: grid;
@@ -179,86 +342,35 @@ layout: null
             transform: translateY(-2px);
         }
 
-        .agent-card .icon {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .agent-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d2d3d;
-            margin-bottom: 6px;
-        }
-
-        .agent-card p {
-            font-size: 13px;
-            color: #6b6b80;
-        }
-
-        .agent-card .modes {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
+        .agent-card .icon { font-size: 28px; margin-bottom: 10px; }
+        .agent-card h3 { font-size: 16px; font-weight: 600; color: #2d2d3d; margin-bottom: 6px; }
+        .agent-card p { font-size: 13px; color: #6b6b80; }
+        .agent-card .modes { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
         .agent-card .mode-tag {
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 3px;
-            background: #f0ecf5;
-            color: #7c6aa6;
-            border: 1px solid #e0dce8;
+            font-size: 11px; padding: 2px 8px; border-radius: 3px;
+            background: #f0ecf5; color: #7c6aa6; border: 1px solid #e0dce8;
         }
 
         /* 데이터 흐름 테이블 */
         .flow-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
+            width: 100%; border-collapse: collapse; font-size: 14px;
+            background: #fff; border-radius: 8px; overflow: hidden;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-
         .flow-table th {
-            background: #f0ecf5;
-            color: #7c6aa6;
-            padding: 12px 16px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid #e0dce8;
+            background: #f0ecf5; color: #7c6aa6; padding: 12px 16px;
+            text-align: left; font-weight: 600; border-bottom: 2px solid #e0dce8;
         }
-
-        .flow-table td {
-            padding: 10px 16px;
-            border-bottom: 1px solid #f0ecf5;
-            color: #4d4d5d;
-        }
-
-        .flow-table tr:hover td {
-            background: #faf8ff;
-        }
-
+        .flow-table td { padding: 10px 16px; border-bottom: 1px solid #f0ecf5; color: #4d4d5d; }
+        .flow-table tr:hover td { background: #faf8ff; }
         .flow-table code {
-            background: #f0ecf5;
-            color: #7c6aa6;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
+            background: #f0ecf5; color: #7c6aa6; padding: 2px 6px; border-radius: 3px; font-size: 12px;
         }
 
         .phase-label {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
+            display: inline-block; padding: 4px 12px; border-radius: 4px;
+            font-size: 12px; font-weight: 600; margin-bottom: 16px;
         }
-
         .phase-pre { background: #dbe9f7; color: #4a7fb5; border: 1px solid #b8d4f0; }
         .phase-live { background: #f7dbe1; color: #c25670; border: 1px solid #f0b8c4; }
         .phase-post { background: #e8ddf7; color: #8b6aaf; border: 1px solid #d4c0e8; }
@@ -266,6 +378,27 @@ layout: null
     </style>
 </head>
 <body>
+
+<!-- 전체화면 오버레이 -->
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+    <div class="fullscreen-toolbar">
+        <div class="title" id="fsTitle"></div>
+        <div class="toolbar-controls">
+            <button class="zoom-btn" onclick="fsZoom(-0.15)">−</button>
+            <div class="fs-zoom-label" id="fsZoomLabel">Fit</div>
+            <button class="zoom-btn" onclick="fsZoom(0.15)">+</button>
+            <button class="zoom-btn" onclick="fsZoom(0, true)">↺</button>
+            <button class="exit-btn" onclick="exitFullscreen()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                나가기
+            </button>
+        </div>
+    </div>
+    <div class="fullscreen-viewport" id="fsViewport">
+        <div class="fs-inner" id="fsInner"></div>
+    </div>
+    <div class="esc-hint">ESC를 눌러 나가기</div>
+</div>
 
 <div class="header">
     <h1>UNX Agent System Architecture</h1>
@@ -333,17 +466,17 @@ layout: null
     <!-- 메인 아키텍처 도표 -->
     <div class="section">
         <h2>전체 데이터 흐름</h2>
-        <p class="subtitle">방송 전·중·후 사이클과 에이전트 간 데이터 교환 — 마우스 휠 또는 버튼으로 확대/축소, 드래그로 이동</p>
-        <div class="mermaid-wrapper">
-            <div class="zoom-controls">
-                <button onclick="zoomDiagram('main', -0.1)" title="축소">−</button>
+        <p class="subtitle">클릭하면 전체화면으로 확대됩니다</p>
+        <div class="mermaid-wrapper" onclick="openFullscreen('main', '전체 데이터 흐름')" data-diagram="main">
+            <div class="zoom-controls" onclick="event.stopPropagation()">
+                <button onclick="zoomDiagram('main', -0.1)">−</button>
                 <div class="zoom-label" id="main-zoom-label">100%</div>
-                <button onclick="zoomDiagram('main', 0.1)" title="확대">+</button>
-                <button onclick="zoomDiagram('main', 0, true)" title="리셋">↺</button>
+                <button onclick="zoomDiagram('main', 0.1)">+</button>
+                <button onclick="zoomDiagram('main', 0, true)">↺</button>
             </div>
-            <div class="mermaid-viewport" id="main-viewport" onwheel="wheelZoom(event, 'main')">
+            <div class="mermaid-viewport" id="main-viewport" onwheel="wheelZoom(event, 'main')" onclick="event.stopPropagation()">
                 <div class="mermaid-inner" id="main-inner">
-                    <pre class="mermaid">
+                    <pre class="mermaid" id="mermaid-main">
 graph TB
     subgraph ALWAYS_ON["🔄 상시 동작"]
         SCOUT["🔍 Scout Agent<br/>트렌드·소재 탐색<br/><br/>• 자동: 주기적 트렌드 크롤링<br/>• 수동: 방송 추천 소재 생성"]
@@ -360,7 +493,7 @@ graph TB
         LIVE_BRAIN["🎙️ Live Agent ⟨on_event⟩<br/>실시간 판단 엔진<br/><br/>• 매 이벤트마다 판단<br/>• tools로 데이터 조회<br/>• BroadcastStrategy 기반 의사결정"]
     end
 
-    subgraph POST_BROADCAST["📊 방송 후 Review & Evaluate"]
+    subgraph POST_BROADCAST["📊 방송 후 Review &amp; Evaluate"]
         REVIEW["🎙️ Live Agent ⟨review⟩<br/><br/>• 팩트 기반 세션 정리<br/>• 자기 전략 평가<br/>• 각 에이전트에 신호 배포"]
         
         PERSONA_EVAL["📖 Persona ⟨evaluate⟩<br/><br/>• 소재별 캐릭터 적합도 평가<br/>• content_pool 스코어 업데이트<br/>• 캐릭터 가이드라인 미세 조정"]
@@ -424,23 +557,27 @@ graph TB
                     </pre>
                 </div>
             </div>
+            <div class="fullscreen-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+                클릭하여 전체화면
+            </div>
         </div>
     </div>
 
     <!-- 학습 루프 -->
     <div class="section">
         <h2>학습 루프</h2>
-        <p class="subtitle">캐릭터 × 방송 세션 단위로 반복되는 개선 사이클</p>
-        <div class="mermaid-wrapper">
-            <div class="zoom-controls">
+        <p class="subtitle">클릭하면 전체화면으로 확대됩니다</p>
+        <div class="mermaid-wrapper" onclick="openFullscreen('loop', '학습 루프')" data-diagram="loop">
+            <div class="zoom-controls" onclick="event.stopPropagation()">
                 <button onclick="zoomDiagram('loop', -0.1)">−</button>
                 <div class="zoom-label" id="loop-zoom-label">100%</div>
                 <button onclick="zoomDiagram('loop', 0.1)">+</button>
                 <button onclick="zoomDiagram('loop', 0, true)">↺</button>
             </div>
-            <div class="mermaid-viewport" id="loop-viewport" onwheel="wheelZoom(event, 'loop')">
+            <div class="mermaid-viewport" id="loop-viewport" onwheel="wheelZoom(event, 'loop')" onclick="event.stopPropagation()">
                 <div class="mermaid-inner" id="loop-inner">
-                    <pre class="mermaid">
+                    <pre class="mermaid" id="mermaid-loop">
 graph LR
     S1["🎙️ 방송 N<br/>on_event"] --> R1["📊 Review<br/>팩트 정리"]
     R1 --> E1["🔍📖🤝<br/>각 에이전트<br/>자기 관점 평가"]
@@ -456,6 +593,10 @@ graph LR
     style S2 fill:#ef9a9a,color:#3d1f1f,stroke:#e57373
                     </pre>
                 </div>
+            </div>
+            <div class="fullscreen-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+                클릭하여 전체화면
             </div>
         </div>
     </div>
@@ -549,53 +690,125 @@ graph LR
         }
     });
 
-    // 확대/축소 상태 관리
-    const zoomState = {
-        main: { scale: 1 },
-        loop: { scale: 1 }
-    };
+    /* ===== 인라인 줌 (기존) ===== */
+    const zoomState = { main: { scale: 1 }, loop: { scale: 1 } };
 
     function zoomDiagram(id, delta, reset) {
-        if (reset) {
-            zoomState[id].scale = 1;
-        } else {
-            zoomState[id].scale = Math.max(0.3, Math.min(3, zoomState[id].scale + delta));
-        }
-        const inner = document.getElementById(id + '-inner');
-        const label = document.getElementById(id + '-zoom-label');
-        inner.style.transform = `scale(${zoomState[id].scale})`;
-        label.textContent = Math.round(zoomState[id].scale * 100) + '%';
+        if (reset) zoomState[id].scale = 1;
+        else zoomState[id].scale = Math.max(0.3, Math.min(3, zoomState[id].scale + delta));
+        document.getElementById(id + '-inner').style.transform = `scale(${zoomState[id].scale})`;
+        document.getElementById(id + '-zoom-label').textContent = Math.round(zoomState[id].scale * 100) + '%';
     }
 
     function wheelZoom(event, id) {
         event.preventDefault();
-        const delta = event.deltaY > 0 ? -0.05 : 0.05;
-        zoomDiagram(id, delta);
+        zoomDiagram(id, event.deltaY > 0 ? -0.05 : 0.05);
     }
 
-    // 드래그로 이동
-    document.querySelectorAll('.mermaid-viewport').forEach(viewport => {
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
+    /* ===== 전체화면 ===== */
+    let fsScale = 1;
+    let currentDiagramId = null;
 
-        viewport.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - viewport.offsetLeft;
-            startY = e.pageY - viewport.offsetTop;
-            scrollLeft = viewport.scrollLeft;
-            scrollTop = viewport.scrollTop;
+    function openFullscreen(diagramId, title) {
+        currentDiagramId = diagramId;
+        const overlay = document.getElementById('fullscreenOverlay');
+        const fsInner = document.getElementById('fsInner');
+        const fsTitle = document.getElementById('fsTitle');
+
+        // 렌더링된 SVG를 복사
+        const source = document.getElementById('mermaid-' + diagramId);
+        const svg = source.tagName === 'svg' ? source : source.querySelector('svg') || source.nextElementSibling;
+        
+        if (svg) {
+            fsInner.innerHTML = svg.outerHTML;
+        } else {
+            // fallback: inner 전체 복사
+            const inner = document.getElementById(diagramId + '-inner');
+            fsInner.innerHTML = inner.innerHTML;
+        }
+
+        fsTitle.textContent = title;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // fit to screen
+        fitToScreen();
+    }
+
+    function fitToScreen() {
+        const viewport = document.getElementById('fsViewport');
+        const inner = document.getElementById('fsInner');
+        const svg = inner.querySelector('svg');
+
+        if (svg) {
+            const vw = viewport.clientWidth - 80;
+            const vh = viewport.clientHeight - 80;
+            const sw = svg.getBoundingClientRect().width / (fsScale || 1);
+            const sh = svg.getBoundingClientRect().height / (fsScale || 1);
+            fsScale = Math.min(vw / sw, vh / sh, 2);
+            inner.style.transform = `scale(${fsScale})`;
+            document.getElementById('fsZoomLabel').textContent = Math.round(fsScale * 100) + '%';
+        }
+    }
+
+    function exitFullscreen() {
+        const overlay = document.getElementById('fullscreenOverlay');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        fsScale = 1;
+        document.getElementById('fsInner').innerHTML = '';
+        currentDiagramId = null;
+    }
+
+    function fsZoom(delta, reset) {
+        if (reset) {
+            fitToScreen();
+            return;
+        }
+        fsScale = Math.max(0.2, Math.min(5, fsScale + delta));
+        document.getElementById('fsInner').style.transform = `scale(${fsScale})`;
+        document.getElementById('fsZoomLabel').textContent = Math.round(fsScale * 100) + '%';
+    }
+
+    // ESC 키로 나가기
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') exitFullscreen();
+    });
+
+    // 전체화면 뷰포트 마우스 휠 줌
+    document.getElementById('fsViewport').addEventListener('wheel', (e) => {
+        e.preventDefault();
+        fsZoom(e.deltaY > 0 ? -0.08 : 0.08);
+    }, { passive: false });
+
+    // 전체화면 드래그 이동
+    (function() {
+        const vp = document.getElementById('fsViewport');
+        let dragging = false, sx, sy, sl, st;
+        vp.addEventListener('mousedown', e => { dragging = true; sx = e.pageX; sy = e.pageY; sl = vp.scrollLeft; st = vp.scrollTop; });
+        vp.addEventListener('mouseup', () => dragging = false);
+        vp.addEventListener('mouseleave', () => dragging = false);
+        vp.addEventListener('mousemove', e => {
+            if (!dragging) return;
+            e.preventDefault();
+            vp.scrollLeft = sl - (e.pageX - sx);
+            vp.scrollTop = st - (e.pageY - sy);
         });
+    })();
 
+    // 인라인 드래그 이동 (기존)
+    document.querySelectorAll('.mermaid-viewport:not(#fsViewport)').forEach(viewport => {
+        let isDragging = false, startX, startY, scrollLeft, scrollTop;
+        viewport.addEventListener('mousedown', (e) => {
+            isDragging = true; startX = e.pageX - viewport.offsetLeft; startY = e.pageY - viewport.offsetTop;
+            scrollLeft = viewport.scrollLeft; scrollTop = viewport.scrollTop;
+        });
         viewport.addEventListener('mouseleave', () => isDragging = false);
         viewport.addEventListener('mouseup', () => isDragging = false);
-
         viewport.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - viewport.offsetLeft;
-            const y = e.pageY - viewport.offsetTop;
-            viewport.scrollLeft = scrollLeft - (x - startX);
-            viewport.scrollTop = scrollTop - (y - startY);
+            if (!isDragging) return; e.preventDefault();
+            viewport.scrollLeft = scrollLeft - ((e.pageX - viewport.offsetLeft) - startX);
+            viewport.scrollTop = scrollTop - ((e.pageY - viewport.offsetTop) - startY);
         });
     });
 </script>
