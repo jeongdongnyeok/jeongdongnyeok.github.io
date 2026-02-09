@@ -1,0 +1,604 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNX Agent System Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #f8f6f2;
+            color: #3d3d3d;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e8e4f0 0%, #d4e4f7 100%);
+            border-bottom: 2px solid #b8a9d4;
+            padding: 40px 60px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d2d3d;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b6b80;
+            font-size: 15px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: #b8a9d4;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #7c6aa6;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 20px;
+            background: #b8a9d4;
+            border-radius: 2px;
+        }
+
+        .section .subtitle {
+            color: #8888a0;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* 확대/축소 가능한 Mermaid 래퍼 */
+        .mermaid-wrapper {
+            background: #ffffff;
+            border: 1px solid #e0dce8;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .zoom-controls button {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid #e0dce8;
+            background: #fff;
+            color: #7c6aa6;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .zoom-controls button:hover {
+            background: #f0ecf5;
+            border-color: #b8a9d4;
+        }
+
+        .zoom-controls .zoom-label {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #8888a0;
+            background: #f8f6ff;
+            border-radius: 8px;
+            border: 1px solid #e0dce8;
+        }
+
+        .mermaid-viewport {
+            overflow: auto;
+            cursor: grab;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .mermaid-viewport:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-viewport .mermaid-inner {
+            transform-origin: top left;
+            transition: transform 0.15s ease;
+            display: inline-block;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Agent 카드 그리드 */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .agent-card {
+            background: #ffffff;
+            border: 1px solid #e0dce8;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.2s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .agent-card:hover {
+            border-color: #b8a9d4;
+            box-shadow: 0 4px 12px rgba(184,169,212,0.2);
+            transform: translateY(-2px);
+        }
+
+        .agent-card .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .agent-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d2d3d;
+            margin-bottom: 6px;
+        }
+
+        .agent-card p {
+            font-size: 13px;
+            color: #6b6b80;
+        }
+
+        .agent-card .modes {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .agent-card .mode-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: #f0ecf5;
+            color: #7c6aa6;
+            border: 1px solid #e0dce8;
+        }
+
+        /* 데이터 흐름 테이블 */
+        .flow-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .flow-table th {
+            background: #f0ecf5;
+            color: #7c6aa6;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #e0dce8;
+        }
+
+        .flow-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0ecf5;
+            color: #4d4d5d;
+        }
+
+        .flow-table tr:hover td {
+            background: #faf8ff;
+        }
+
+        .flow-table code {
+            background: #f0ecf5;
+            color: #7c6aa6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .phase-label {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .phase-pre { background: #dbe9f7; color: #4a7fb5; border: 1px solid #b8d4f0; }
+        .phase-live { background: #f7dbe1; color: #c25670; border: 1px solid #f0b8c4; }
+        .phase-post { background: #e8ddf7; color: #8b6aaf; border: 1px solid #d4c0e8; }
+        .phase-always { background: #dbf0e0; color: #5a9e6a; border: 1px solid #b8e0c0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>UNX Agent System Architecture</h1>
+    <p>AI-Powered Live Streaming Agent System — 캐릭터 × 방송 세션 단위 학습 루프</p>
+    <span class="badge">v2 — 평가 분산 구조</span>
+</div>
+
+<div class="container">
+
+    <!-- 에이전트 카드 -->
+    <div class="section">
+        <h2>에이전트 구성</h2>
+        <p class="subtitle">5개 독립 에이전트, 각각 자체 목표와 평가 사이클 보유</p>
+        <div class="agent-grid">
+            <div class="agent-card">
+                <div class="icon">🎙️</div>
+                <h3>Live Agent</h3>
+                <p>방송 실행과 실시간 판단. 방송의 전·중·후 전 사이클을 주도하는 핵심 엔진.</p>
+                <div class="modes">
+                    <span class="mode-tag">prepare</span>
+                    <span class="mode-tag">on_event</span>
+                    <span class="mode-tag">review</span>
+                </div>
+            </div>
+            <div class="agent-card">
+                <div class="icon">🔍</div>
+                <h3>Scout Agent</h3>
+                <p>외부 트렌드·소재 탐색. 자동 크롤링 + 수동 트리거로 방송 소재 원재료 수급.</p>
+                <div class="modes">
+                    <span class="mode-tag">auto crawl</span>
+                    <span class="mode-tag">manual trigger</span>
+                    <span class="mode-tag">evaluate</span>
+                </div>
+            </div>
+            <div class="agent-card">
+                <div class="icon">📖</div>
+                <h3>Persona Agent</h3>
+                <p>캐릭터 세계관·페르소나 관리. Scout 소재를 캐릭터에 맞게 가공하고 적합도 평가.</p>
+                <div class="modes">
+                    <span class="mode-tag">adapt content</span>
+                    <span class="mode-tag">evaluate</span>
+                </div>
+            </div>
+            <div class="agent-card">
+                <div class="icon">🤝</div>
+                <h3>Bond Agent</h3>
+                <p>팬 관계·커뮤니티 관리. 이탈 감지, DM 추천, 세그먼트 분류 등 독자 액션 수행.</p>
+                <div class="modes">
+                    <span class="mode-tag">fan management</span>
+                    <span class="mode-tag">evaluate</span>
+                </div>
+            </div>
+            <div class="agent-card">
+                <div class="icon">🎨</div>
+                <h3>Craft Agent</h3>
+                <p>에셋 생성·제작. 스토리보드, 이미지, 영상 클립. 향후 방송 중 실시간 생성 확장.</p>
+                <div class="modes">
+                    <span class="mode-tag">pre-production</span>
+                    <span class="mode-tag" style="opacity:0.5">realtime (향후)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 아키텍처 도표 -->
+    <div class="section">
+        <h2>전체 데이터 흐름</h2>
+        <p class="subtitle">방송 전·중·후 사이클과 에이전트 간 데이터 교환 — 마우스 휠 또는 버튼으로 확대/축소, 드래그로 이동</p>
+        <div class="mermaid-wrapper">
+            <div class="zoom-controls">
+                <button onclick="zoomDiagram('main', -0.1)" title="축소">−</button>
+                <div class="zoom-label" id="main-zoom-label">100%</div>
+                <button onclick="zoomDiagram('main', 0.1)" title="확대">+</button>
+                <button onclick="zoomDiagram('main', 0, true)" title="리셋">↺</button>
+            </div>
+            <div class="mermaid-viewport" id="main-viewport" onwheel="wheelZoom(event, 'main')">
+                <div class="mermaid-inner" id="main-inner">
+                    <pre class="mermaid">
+graph TB
+    subgraph ALWAYS_ON["🔄 상시 동작"]
+        SCOUT["🔍 Scout Agent<br/>트렌드·소재 탐색<br/><br/>• 자동: 주기적 트렌드 크롤링<br/>• 수동: 방송 추천 소재 생성"]
+        BOND["🤝 Bond Agent<br/>팬 관계·커뮤니티<br/><br/>• 이탈 위험 팬 DM 추천<br/>• 세그먼트 자동 재분류<br/>• 팬 관계 히스토리 관리"]
+    end
+
+    subgraph PRE_BROADCAST["📋 방송 전 Prepare"]
+        PERSONA["📖 Persona Agent<br/>캐릭터 세계관·페르소나<br/><br/>• Scout 소재를 캐릭터에 맞게 가공<br/>• 캐릭터 설정·말투·금기사항 관리"]
+        CRAFT["🎨 Craft Agent<br/>에셋 사전 제작<br/><br/>• 스토리보드·이미지·영상 클립"]
+        PREPARE["🎙️ Live Agent ⟨prepare⟩<br/><br/>• BroadcastStrategy 수립<br/>• 소재큐·팬워치리스트·KPI 설정"]
+    end
+
+    subgraph LIVE["⚡ 방송 중 On-Air"]
+        LIVE_BRAIN["🎙️ Live Agent ⟨on_event⟩<br/>실시간 판단 엔진<br/><br/>• 매 이벤트마다 판단<br/>• tools로 데이터 조회<br/>• BroadcastStrategy 기반 의사결정"]
+    end
+
+    subgraph POST_BROADCAST["📊 방송 후 Review & Evaluate"]
+        REVIEW["🎙️ Live Agent ⟨review⟩<br/><br/>• 팩트 기반 세션 정리<br/>• 자기 전략 평가<br/>• 각 에이전트에 신호 배포"]
+        
+        PERSONA_EVAL["📖 Persona ⟨evaluate⟩<br/><br/>• 소재별 캐릭터 적합도 평가<br/>• content_pool 스코어 업데이트<br/>• 캐릭터 가이드라인 미세 조정"]
+        
+        BOND_EVAL["🤝 Bond ⟨evaluate⟩<br/><br/>• 팬 세그먼트별 반응 해석<br/>• fan_memory 업데이트<br/>• DM 추천 큐잉"]
+        
+        SCOUT_EVAL["🔍 Scout ⟨evaluate⟩<br/><br/>• 트렌드 적중률 평가<br/>• 탐색 전략 보정<br/>• 탐색 우선순위 재조정"]
+    end
+
+    CONTENT_POOL[("📦 Content Pool<br/>캐릭터 맞춤 소재")]
+    FAN_MEMORY[("👥 Fan Memory<br/>팬 프로필·관계·히스토리")]
+    ASSET_STORE[("🗂️ Asset Store<br/>영상·이미지·프리셋")]
+
+    SCOUT -->|"raw_trends<br/>트렌드 원재료"| PERSONA
+    PERSONA -->|"adapted_content<br/>캐릭터 맞춤 소재"| CONTENT_POOL
+    BOND -->|"팬 관계 관리<br/>DM 추천, 세그먼트 관리"| FAN_MEMORY
+
+    CONTENT_POOL -->|"우선순위 소재 목록"| PREPARE
+    FAN_MEMORY -->|"VIP 팬 리스트<br/>주목 팬 알림"| PREPARE
+    PERSONA -->|"캐릭터 설정 스냅샷<br/>말투·성격·금기사항"| PREPARE
+    PREPARE -->|"에셋 제작 요청"| CRAFT
+    CRAFT -->|"제작된 에셋"| ASSET_STORE
+    PREPARE -->|"BroadcastStrategy"| LIVE_BRAIN
+
+    CONTENT_POOL -.->|"tool: fetch_content()"| LIVE_BRAIN
+    FAN_MEMORY -.->|"tool: lookup_fan()"| LIVE_BRAIN
+    ASSET_STORE -.->|"tool: fetch_asset()"| LIVE_BRAIN
+    PERSONA -.->|"tool: check_persona()"| LIVE_BRAIN
+
+    LIVE_BRAIN -->|"session_log"| REVIEW
+
+    REVIEW -->|"FanSignals<br/>팬 활동 기록·주목 이벤트"| BOND_EVAL
+    REVIEW -->|"ContentSignals<br/>소재 성과·콘텐츠 갭"| PERSONA_EVAL
+    REVIEW -->|"ContentSignals<br/>트렌드 적중·청중 관심사"| SCOUT_EVAL
+    REVIEW -->|"StrategyFeedback<br/>→ 다음 prepare"| PREPARE
+
+    PERSONA_EVAL -->|"소재 스코어 업데이트<br/>캐릭터 가이드 보정"| CONTENT_POOL
+    PERSONA_EVAL -->|"페르소나 미세 조정"| PERSONA
+    BOND_EVAL -->|"팬 데이터 업데이트<br/>DM 큐잉"| FAN_MEMORY
+    SCOUT_EVAL -->|"탐색 우선순위 보정"| SCOUT
+
+    style ALWAYS_ON fill:#e8f5e9,stroke:#81c784,color:#2d3d2f
+    style PRE_BROADCAST fill:#e3f2fd,stroke:#64b5f6,color:#2d3d4f
+    style LIVE fill:#fce4ec,stroke:#e57373,color:#3d2d2f,stroke-width:3px
+    style POST_BROADCAST fill:#ede7f6,stroke:#b39ddb,color:#3d2d4f
+
+    style SCOUT fill:#c8e6c9,stroke:#66bb6a,color:#2d3d2f
+    style BOND fill:#c8e6c9,stroke:#66bb6a,color:#2d3d2f
+    style PERSONA fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
+    style CRAFT fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
+    style PREPARE fill:#bbdefb,stroke:#42a5f5,color:#2d3d4f
+    style LIVE_BRAIN fill:#ef9a9a,stroke:#e57373,color:#3d1f1f,stroke-width:2px
+    style REVIEW fill:#ce93d8,stroke:#ab47bc,color:#fff
+    style PERSONA_EVAL fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
+    style BOND_EVAL fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
+    style SCOUT_EVAL fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
+
+    style CONTENT_POOL fill:#bbdefb,stroke:#64b5f6,color:#2d3d4f
+    style FAN_MEMORY fill:#bbdefb,stroke:#64b5f6,color:#2d3d4f
+    style ASSET_STORE fill:#bbdefb,stroke:#64b5f6,color:#2d3d4f
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 학습 루프 -->
+    <div class="section">
+        <h2>학습 루프</h2>
+        <p class="subtitle">캐릭터 × 방송 세션 단위로 반복되는 개선 사이클</p>
+        <div class="mermaid-wrapper">
+            <div class="zoom-controls">
+                <button onclick="zoomDiagram('loop', -0.1)">−</button>
+                <div class="zoom-label" id="loop-zoom-label">100%</div>
+                <button onclick="zoomDiagram('loop', 0.1)">+</button>
+                <button onclick="zoomDiagram('loop', 0, true)">↺</button>
+            </div>
+            <div class="mermaid-viewport" id="loop-viewport" onwheel="wheelZoom(event, 'loop')">
+                <div class="mermaid-inner" id="loop-inner">
+                    <pre class="mermaid">
+graph LR
+    S1["🎙️ 방송 N<br/>on_event"] --> R1["📊 Review<br/>팩트 정리"]
+    R1 --> E1["🔍📖🤝<br/>각 에이전트<br/>자기 관점 평가"]
+    E1 --> U1["💾 DB 업데이트<br/>Content Pool<br/>Fan Memory<br/>탐색 전략"]
+    U1 --> P2["📋 Prepare<br/>보정된 전략"]
+    P2 --> S2["🎙️ 방송 N+1<br/>on_event"]
+
+    style S1 fill:#ef9a9a,color:#3d1f1f,stroke:#e57373
+    style R1 fill:#ce93d8,color:#fff,stroke:#ab47bc
+    style E1 fill:#e1bee7,stroke:#ba68c8,color:#3d2d4f
+    style U1 fill:#bbdefb,color:#2d3d4f,stroke:#64b5f6
+    style P2 fill:#bbdefb,color:#2d3d4f,stroke:#64b5f6
+    style S2 fill:#ef9a9a,color:#3d1f1f,stroke:#e57373
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 데이터 흐름 테이블 -->
+    <div class="section">
+        <h2>데이터 흐름 상세</h2>
+
+        <span class="phase-label phase-always">🔄 상시 동작</span>
+        <table class="flow-table">
+            <thead><tr><th>From</th><th>To</th><th>데이터</th><th>설명</th></tr></thead>
+            <tbody>
+                <tr><td>Scout</td><td>Persona</td><td><code>raw_trends</code></td><td>트렌드 원재료 (밈, 뉴스, 토픽)</td></tr>
+                <tr><td>Persona</td><td>Content Pool</td><td><code>adapted_content</code></td><td>캐릭터에 맞게 가공된 소재</td></tr>
+                <tr><td>Bond</td><td>Fan Memory</td><td>팬 관계 관리 액션</td><td>이탈 위험 DM 추천, 세그먼트 재분류</td></tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <span class="phase-label phase-pre">📋 방송 전 (Prepare)</span>
+        <table class="flow-table">
+            <thead><tr><th>From</th><th>To</th><th>데이터</th><th>설명</th></tr></thead>
+            <tbody>
+                <tr><td>Content Pool</td><td>Live [prepare]</td><td>우선순위 소재 목록</td><td>이번 방송에 쓸 소재 큐</td></tr>
+                <tr><td>Fan Memory</td><td>Live [prepare]</td><td>VIP 팬 리스트 + 알림</td><td>주목할 팬, 최근 행동 요약</td></tr>
+                <tr><td>Persona</td><td>Live [prepare]</td><td>캐릭터 설정 스냅샷</td><td>말투, 성격, 금기사항</td></tr>
+                <tr><td>Live [prepare]</td><td>Craft</td><td>에셋 제작 요청</td><td>스토리보드, 필요 이미지 목록</td></tr>
+                <tr><td>Craft</td><td>Asset Store</td><td>제작된 에셋</td><td>영상 클립, 이미지, 프리셋</td></tr>
+                <tr><td>Live [prepare]</td><td>Live [on_event]</td><td><code>BroadcastStrategy</code></td><td>전략, 소재큐, 팬워치리스트, KPI</td></tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <span class="phase-label phase-live">⚡ 방송 중 (On-Air)</span>
+        <table class="flow-table">
+            <thead><tr><th>From</th><th>To</th><th>데이터</th><th>호출 방식</th></tr></thead>
+            <tbody>
+                <tr><td>Content Pool</td><td>Live [on_event]</td><td>소재 검색 결과</td><td><code>tool: fetch_content()</code></td></tr>
+                <tr><td>Fan Memory</td><td>Live [on_event]</td><td>팬 프로필·히스토리</td><td><code>tool: lookup_fan()</code></td></tr>
+                <tr><td>Asset Store</td><td>Live [on_event]</td><td>준비된 에셋</td><td><code>tool: fetch_asset()</code></td></tr>
+                <tr><td>Persona</td><td>Live [on_event]</td><td>페르소나 체크</td><td><code>tool: check_persona()</code></td></tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <span class="phase-label phase-post">📊 방송 후 (Review & Evaluate)</span>
+        <table class="flow-table">
+            <thead><tr><th>From</th><th>To</th><th>데이터</th><th>설명</th></tr></thead>
+            <tbody>
+                <tr><td>Live [review]</td><td>Bond [evaluate]</td><td><code>FanSignals</code></td><td>팬 활동 기록, 주목 이벤트, 세그먼트 관찰</td></tr>
+                <tr><td>Live [review]</td><td>Persona [evaluate]</td><td><code>ContentSignals</code></td><td>소재 성과, 콘텐츠 갭, 캐릭터 반응 데이터</td></tr>
+                <tr><td>Live [review]</td><td>Scout [evaluate]</td><td><code>ContentSignals</code></td><td>트렌드 적중률, 청중 관심사 신호</td></tr>
+                <tr><td>Live [review]</td><td>다음 prepare</td><td><code>StrategyFeedback</code></td><td>효과 패턴, 파라미터 보정 권고</td></tr>
+                <tr><td>Persona [evaluate]</td><td>Content Pool</td><td>스코어 업데이트</td><td>소재별 캐릭터 적합도 재평가</td></tr>
+                <tr><td>Persona [evaluate]</td><td>Persona</td><td>가이드라인 보정</td><td>페르소나 미세 조정</td></tr>
+                <tr><td>Bond [evaluate]</td><td>Fan Memory</td><td>팬 데이터 업데이트</td><td>세그먼트별 반응 해석, DM 큐잉</td></tr>
+                <tr><td>Scout [evaluate]</td><td>Scout</td><td>탐색 전략 보정</td><td>우선순위 재조정, 크롤링 방향 변경</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+            primaryColor: '#e3f2fd',
+            primaryTextColor: '#2d3d4f',
+            primaryBorderColor: '#64b5f6',
+            lineColor: '#90a4ae',
+            secondaryColor: '#f3e5f5',
+            tertiaryColor: '#e8f5e9',
+            background: '#ffffff',
+            mainBkg: '#e3f2fd',
+            nodeBorder: '#64b5f6',
+            clusterBkg: '#fafafa',
+            clusterBorder: '#e0e0e0',
+            titleColor: '#2d3d4f',
+            edgeLabelBackground: '#ffffff',
+            fontSize: '13px'
+        },
+        flowchart: {
+            useMaxWidth: false,
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 20,
+            nodeSpacing: 50,
+            rankSpacing: 60
+        }
+    });
+
+    // 확대/축소 상태 관리
+    const zoomState = {
+        main: { scale: 1 },
+        loop: { scale: 1 }
+    };
+
+    function zoomDiagram(id, delta, reset) {
+        if (reset) {
+            zoomState[id].scale = 1;
+        } else {
+            zoomState[id].scale = Math.max(0.3, Math.min(3, zoomState[id].scale + delta));
+        }
+        const inner = document.getElementById(id + '-inner');
+        const label = document.getElementById(id + '-zoom-label');
+        inner.style.transform = `scale(${zoomState[id].scale})`;
+        label.textContent = Math.round(zoomState[id].scale * 100) + '%';
+    }
+
+    function wheelZoom(event, id) {
+        event.preventDefault();
+        const delta = event.deltaY > 0 ? -0.05 : 0.05;
+        zoomDiagram(id, delta);
+    }
+
+    // 드래그로 이동
+    document.querySelectorAll('.mermaid-viewport').forEach(viewport => {
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        viewport.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - viewport.offsetLeft;
+            startY = e.pageY - viewport.offsetTop;
+            scrollLeft = viewport.scrollLeft;
+            scrollTop = viewport.scrollTop;
+        });
+
+        viewport.addEventListener('mouseleave', () => isDragging = false);
+        viewport.addEventListener('mouseup', () => isDragging = false);
+
+        viewport.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - viewport.offsetLeft;
+            const y = e.pageY - viewport.offsetTop;
+            viewport.scrollLeft = scrollLeft - (x - startX);
+            viewport.scrollTop = scrollTop - (y - startY);
+        });
+    });
+</script>
+
+</body>
+</html>
